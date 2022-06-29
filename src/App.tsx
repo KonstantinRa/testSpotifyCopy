@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Grid, Typography } from "@mui/material";
+import { ReactElement, useState } from "react";
+import SearchField from "./components/SearchField";
+import Tracks from "./components/Tracks";
+import { TracksResponse } from "./interfaces";
+import logo from "./logo.png";
 
-function App() {
+const App = (): ReactElement => {
+  const [results, setResults] = useState<TracksResponse>();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid container>
+      <Grid item md={2} className="sidebar">
+        <img src={logo} alt="" />
+        <Typography variant="overline" display="block" gutterBottom>
+          Spotify API Test Assignment
+        </Typography>
+      </Grid>
+      <Grid item md={10} className="mainContent">
+        <SearchField onSearchResults={setResults} />
+        <Tracks allTracks={results} />
+      </Grid>
+    </Grid>
   );
-}
+};
 
 export default App;
